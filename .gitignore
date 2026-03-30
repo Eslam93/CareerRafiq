@@ -10,8 +10,12 @@ coverage
 .env.*
 !.env.example
 apps/api/data/
+apps/api/apps/api/data/
+apps/extension/.wxt/
+apps/extension/typecheck/
 *.db
 *.db-shm
 *.db-wal
+*.tsbuildinfo
 PRD.docx
 package-lock.json
