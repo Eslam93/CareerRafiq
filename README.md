@@ -1,85 +1,91 @@
 # CareerRafiq
 
-Contract-first TypeScript monorepo scaffold for the AI Job Fit Copilot & Application Tracker.
+CareerRafiq is an AI job-fit copilot and application tracker for active job seekers.
 
-## Packages
-- `packages/contracts`: shared domain and API contracts
-- `packages/core`: setup, validation, evaluation, tracker, and extraction logic
-- `packages/benchmarks`: regression fixtures and QA cases
+> "The product helps job seekers make better application decisions and stay organized during an active job search."
 
-## Apps
-- `apps/api`: minimal JSON API wrapper over the core engine
-- `apps/web`: web app shell
-- `apps/extension`: browser extension shell
+This repository is a work in progress. It is under active development and manual testing, and it is not finished yet. The product scope, behavior, and UI are still evolving toward the PRD. It should not be treated as production-ready.
 
-## Commands
-- `npm install`
-- `npm start`
-- `npm run start:api`
-- `npm run dev:web`
-- `npm run check`
-- `npm run build`
-- `npm run test`
+## What We Are Building
 
-## Runtime
-The supported product runtime is:
-- `apps/api` backed by SQLite persistence in `apps/api/data/career-rafiq.db`
-- `apps/web` served by the API
-- `apps/extension` talking to the API over HTTP
+The product is being built around one main workflow:
 
-The legacy JSON state-file path in `apps/api/src/persistence.ts` and `packages/core/src/core.ts` remains only as a compatibility harness for tests and local pure-core experiments. It is not the shipped runtime path.
+> capture a job -> assess fit -> choose the best CV -> decide apply/skip -> track status -> know the next action
 
-## Local npm startup
-Create a repo-root `.env` first. A working local file is expected at `./.env`.
+The goal is to help a user:
+- save jobs from real job pages
+- compare those jobs against multiple CV versions
+- decide whether a role is worth pursuing
+- know which CV to use
+- keep each opportunity organized in one tracker
 
-Single-process app startup that serves the built web app from the API:
+Another core promise from the PRD is:
+
+> "Save any job, see whether it is worth applying to, know which CV to use, and keep your search organized."
+
+## What It Is Not
+
+CareerRafiq is intentionally narrow in v1.
+
+> "The product is not a job board, resume builder, or general AI career assistant."
+
+It is not meant to be:
+- a resume authoring tool
+- an auto-apply system
+- a broad career coaching assistant
+- a recruiter CRM
+- a full analytics or workflow automation platform
+
+## Intended User Flow
+
+The intended product flow is:
+1. Upload one or more CVs.
+2. Let the system build a profile for each CV and infer baseline preferences.
+3. Capture a job from a supported page or add it manually.
+4. Review extraction only when confidence is too low or the job data is incomplete.
+5. Get a verdict, recommended CV, explanation, major gaps, and next action.
+6. Keep the opportunity in a lightweight tracker and update status over time.
+
+## Current Status
+
+This codebase currently represents an in-progress implementation of that product vision.
+
+Important status notes:
+- the product is still under active testing
+- some flows are implemented but still being hardened
+- some PRD requirements are only partially complete
+- some product behavior is still being refined through manual validation
+- data models, UI flows, and operational tooling may still change
+
+If you are reading this repo publicly, treat it as a working build in progress, not a completed product release.
+
+## Local Development
+
+If you want to run the current build locally:
 
 ```powershell
+npm install
+npm run check
+npm run test
 npm start
 ```
 
-Split local development:
+For split local development:
 
 ```powershell
 npm run start:api
 npm run dev:web
 ```
 
-`npm run start:api` now auto-loads the repo-root `.env` file before starting the built API.
-`npm run dev:web` runs Vite on `http://localhost:5173` and proxies `/api` to `http://localhost:8787`.
+Use `.env.example` as the starting point for local configuration.
 
-Useful environment variables:
-- `CAREERRAFIQ_DB_FILE` to override the SQLite database path
-- `CAREERRAFIQ_UPLOADS_DIR` to override persisted CV upload storage
-- `CAREERRAFIQ_MAX_CV_UPLOAD_COUNT` and `CAREERRAFIQ_MAX_CV_UPLOAD_BYTES` to hard-limit CV intake
-- `CAREERRAFIQ_UPLOAD_RATE_LIMIT_*` and `CAREERRAFIQ_CAPTURE_RATE_LIMIT_*` to throttle repeated intake and capture activity
-- `CAREERRAFIQ_WEB_ORIGIN` and `CAREERRAFIQ_EXTENSION_ORIGIN` for CORS
-- `CAREERRAFIQ_MAGIC_LINK_THROTTLE_SECONDS` to throttle repeated passwordless login requests per email
-- `CAREERRAFIQ_DEV_AUTO_VERIFY_MAGIC_LINK=1` to auto-mark extracted emails as verified during local non-production onboarding
-- `CAREERRAFIQ_SMTP_*` and `CAREERRAFIQ_EMAIL_FROM` to enable real magic-link delivery
-- `CAREERRAFIQ_WEB_DIST_DIR` to serve a prebuilt web bundle from a different location
+## Repo Scope
 
-## Docker runtime
-- Copy `.env.example` to `.env` and adjust origins, SMTP, and AI flags as needed.
-- Run `docker compose up --build`.
-- The container persists SQLite data and uploads in the `careerrafiq-data` volume.
-- Health checks use `/ready`, which validates database access, served web assets, and runtime configuration warnings.
+This monorepo currently contains:
+- the API
+- the web app
+- the browser extension
+- shared contracts and core logic
+- benchmarking and regression fixtures
 
-## Internal beta smoke flows
-- Setup flow: upload one or more CVs, confirm the selected email candidate or no-email flags, then send or consume a magic link.
-- Review flow: edit a CV profile, set the default CV, refresh AI suggestions, update preferences, and confirm reevaluated tracked jobs appear when expected.
-- Capture flow: capture a supported job page, verify review-required handling for incomplete jobs, and use the stored-capture reprocess path.
-- Tracker flow: filter or sort items, change status, follow or override the verdict, and confirm historical evaluations remain visible.
-- Ops flow: inspect `/ops` for tracker counts, analytics coverage, and magic-link outbox lookup during beta.
-- Extension flow: capture from a supported source, verify the compact quick result, and confirm session-expiry messaging routes back to the web app.
-
-Detailed release checks live in [docs/release/internal-beta-checklist.md](docs/release/internal-beta-checklist.md) and [docs/release/smoke-flows.md](docs/release/smoke-flows.md).
-
-## Current slice
-- persisted CV bootstrap and post-setup CV uploads
-- passwordless magic-link verification with short-lived temporary or unverified return access
-- SMTP-backed magic-link delivery with persisted outbox status and basic request throttling
-- source extraction for Greenhouse, LinkedIn, Indeed, Lever, Workday, and Glassdoor
-- review-gated evaluation with extraction history, field evidence, AI fallback metadata, and deterministic multi-CV scoring
-- tracker persistence, historical evaluations, duplicate surfacing, and compact extension quick results
-- guided web flows for setup, review, manual capture, job correction, and lightweight ops visibility
+The implementation details are here because they support the product above. The product itself is the focus.
