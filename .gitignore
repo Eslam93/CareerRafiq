@@ -1,0 +1,17 @@
+node_modules
+dist
+coverage
+.DS_Store
+*.log
+*.out
+*.err
+.output
+.env
+.env.*
+!.env.example
+apps/api/data/
+*.db
+*.db-shm
+*.db-wal
+PRD.docx
+package-lock.json

@@ -1,0 +1,51 @@
+# Analytics Events Contract
+
+## Required events
+- cv_upload_started
+- cv_upload_completed
+- cv_profile_generated
+- setup_minimum_ready
+- setup_review_opened
+- setup_review_completed
+- email_extracted
+- magic_link_sent
+- email_verified
+- job_capture_started
+- job_capture_succeeded
+- job_capture_failed
+- job_review_required
+- job_review_confirmed
+- job_review_edited
+- job_manual_paste_used
+- evaluation_started
+- evaluation_completed
+- evaluation_failed
+- verdict_shown
+- recommended_cv_shown
+- details_view_opened
+- recommended_cv_accepted
+- recommended_cv_overridden
+- verdict_followed
+- verdict_overridden
+- status_changed
+- notes_added
+- tracker_opened
+- tracked_job_opened
+- reevaluation_requested
+- reevaluation_completed
+
+## Common properties
+- user_id
+- cv_id
+- job_id
+- tracker_item_id
+- source_type
+- source_domain
+- capture_method
+- extraction_confidence_band
+- review_required_flag
+- evaluation_version
+- recommended_cv_id
+- verdict
+- override_flag
+- timestamp

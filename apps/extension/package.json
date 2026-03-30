@@ -1,0 +1,25 @@
+{
+  "name": "@career-rafiq/extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt prepare && wxt build",
+    "check": "wxt prepare && tsc -p tsconfig.json --noEmit",
+    "prepare": "wxt prepare"
+  },
+  "dependencies": {
+    "@career-rafiq/contracts": "file:../../packages/contracts",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@wxt-dev/module-react": "^1.2.2",
+    "typescript": "^5.9.0",
+    "wxt": "^0.20.20"
+  }
+}

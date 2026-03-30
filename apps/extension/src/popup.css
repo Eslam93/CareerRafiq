@@ -1,0 +1,165 @@
+:root {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #12233f;
+  background: #f5f8fc;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  width: 380px;
+  min-height: 460px;
+}
+
+.crx-root {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 460px;
+  padding: 14px;
+  gap: 12px;
+  background: linear-gradient(160deg, #f6f9ff 0%, #eef4fb 45%, #f9f7f1 100%);
+}
+
+.crx-root * {
+  box-sizing: border-box;
+}
+
+.crx-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.crx-brand {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.crx-subtle {
+  margin: 4px 0 0;
+  color: #4c6286;
+  font-size: 12px;
+}
+
+.crx-panel {
+  flex: 1;
+  border: 1px solid #d5deec;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.crx-title {
+  margin: 0 0 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.crx-copy {
+  margin: 0 0 10px;
+  color: #20314f;
+  line-height: 1.45;
+  font-size: 13px;
+}
+
+.crx-result-row {
+  display: grid;
+  grid-template-columns: 124px 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.crx-result-block {
+  margin-bottom: 10px;
+}
+
+.crx-key {
+  color: #445a7a;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.crx-value {
+  font-size: 13px;
+  color: #102442;
+}
+
+.crx-list {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  color: #1a2f4f;
+  font-size: 13px;
+}
+
+.crx-list li + li {
+  margin-top: 5px;
+}
+
+.crx-loader {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #c6d8ff 20%, #6d94e8 50%, #c6d8ff 80%);
+  background-size: 220% 100%;
+  animation: crx-loading 1.1s linear infinite;
+}
+
+@keyframes crx-loading {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 220% 0;
+  }
+}
+
+.crx-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.crx-primary,
+.crx-secondary,
+.crx-link {
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.crx-primary {
+  width: 100%;
+  border: 1px solid #245cb6;
+  background: #2f6fd7;
+  color: #fff;
+  padding: 9px 12px;
+}
+
+.crx-primary:disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+
+.crx-secondary {
+  border: 1px solid #c9d5ea;
+  background: #f6f9ff;
+  color: #223b61;
+  padding: 7px 10px;
+}
+
+.crx-link {
+  border: none;
+  background: transparent;
+  color: #2c5db3;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.crx-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

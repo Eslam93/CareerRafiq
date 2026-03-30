@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "moduleDetection": "force",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "useUnknownInCatchVariables": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@career-rafiq/contracts": ["packages/contracts/src/index.ts"],
+      "@career-rafiq/core": ["packages/core/src/index.ts"],
+      "@career-rafiq/db": ["packages/db/src/index.ts"],
+      "@career-rafiq/api": ["apps/api/src/index.ts"],
+      "@career-rafiq/web": ["apps/web/src/index.ts"],
+      "@career-rafiq/extension": ["apps/extension/src/index.ts"],
+      "@career-rafiq/benchmarks": ["packages/benchmarks/src/index.ts"]
+    }
+  }
+}

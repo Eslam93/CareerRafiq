@@ -1,0 +1,33 @@
+{
+  "name": "career-rafiq",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "npm run build:ts && npm run build:web && npm run start --workspace @career-rafiq/api",
+    "start:api": "npm run build:ts && npm run start --workspace @career-rafiq/api",
+    "dev:web": "npm run dev --workspace @career-rafiq/web",
+    "build": "npm run build:ts && npm run build:web && npm run build:extension",
+    "build:ts": "tsc -b",
+    "build:web": "npm run build --workspace @career-rafiq/web",
+    "build:extension": "npm run build --workspace @career-rafiq/extension",
+    "check": "npm run check:ts && npm run check:web && npm run check:extension",
+    "check:ts": "tsc -b --pretty false",
+    "check:web": "npm run check --workspace @career-rafiq/web",
+    "check:extension": "npm run check --workspace @career-rafiq/extension",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@vitejs/plugin-react": "^5.1.0",
+    "@wxt-dev/module-react": "^1.1.3",
+    "typescript": "^5.9.0",
+    "vite": "^7.1.5",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4",
+    "wxt": "^0.20.7"
+  }
+}

@@ -1,0 +1,58 @@
+export const AnalyticsEventNames = [
+  'cv_upload_started',
+  'cv_upload_completed',
+  'cv_profile_generated',
+  'setup_minimum_ready',
+  'setup_review_opened',
+  'setup_review_completed',
+  'email_extracted',
+  'magic_link_sent',
+  'email_verified',
+  'job_capture_started',
+  'job_capture_succeeded',
+  'job_capture_failed',
+  'job_review_required',
+  'job_review_confirmed',
+  'job_review_edited',
+  'job_manual_paste_used',
+  'evaluation_started',
+  'evaluation_completed',
+  'evaluation_failed',
+  'verdict_shown',
+  'recommended_cv_shown',
+  'details_view_opened',
+  'recommended_cv_accepted',
+  'recommended_cv_overridden',
+  'verdict_followed',
+  'verdict_overridden',
+  'status_changed',
+  'notes_added',
+  'tracker_opened',
+  'tracked_job_opened',
+  'reevaluation_requested',
+  'reevaluation_completed',
+] as const;
+
+export type AnalyticsEventName = (typeof AnalyticsEventNames)[number];
+
+export interface AnalyticsEventCommonProps {
+  userId?: string;
+  cvId?: string;
+  jobId?: string;
+  trackerItemId?: string;
+  sourceType?: string;
+  sourceDomain?: string;
+  captureMethod?: string;
+  extractionConfidenceBand?: string;
+  reviewRequiredFlag?: boolean;
+  evaluationVersion?: string;
+  recommendedCvId?: string;
+  verdict?: string | null;
+  overrideFlag?: boolean;
+}
+
+export interface AnalyticsEvent {
+  name: AnalyticsEventName;
+  timestamp: string;
+  properties: AnalyticsEventCommonProps & Record<string, unknown>;
+}
