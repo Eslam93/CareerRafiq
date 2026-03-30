@@ -1,4 +1,4 @@
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import type { AddressInfo } from 'node:net';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -25,6 +25,17 @@ async function startServer(dbFilePath: string): Promise<StartedServer> {
       service.close();
     },
   };
+}
+
+async function createTestWebDist(tempDir: string): Promise<string> {
+  const webDistDir = join(tempDir, 'web-dist');
+  await mkdir(webDistDir, { recursive: true });
+  await writeFile(
+    join(webDistDir, 'index.html'),
+    '<!doctype html><html><head><meta charset="utf-8"><title>CareerRafiq Test</title></head><body>test</body></html>',
+    'utf8',
+  );
+  return webDistDir;
 }
 
 class CookieJar {
@@ -81,6 +92,7 @@ const tempDirectories: string[] = [];
 afterEach(async () => {
   delete process.env['CAREERRAFIQ_DB_FILE'];
   delete process.env['CAREERRAFIQ_UPLOADS_DIR'];
+  delete process.env['CAREERRAFIQ_WEB_DIST_DIR'];
   delete process.env['CAREERRAFIQ_INSECURE_DEV_COOKIE'];
   delete process.env['CAREERRAFIQ_WEB_ORIGIN'];
   delete process.env['CAREERRAFIQ_ENABLE_EYE_MODE'];
@@ -99,6 +111,7 @@ describe('API server integration', () => {
     tempDirectories.push(tempDir);
     process.env['CAREERRAFIQ_DB_FILE'] = join(tempDir, 'career-rafiq.db');
     process.env['CAREERRAFIQ_UPLOADS_DIR'] = join(tempDir, 'uploads');
+    process.env['CAREERRAFIQ_WEB_DIST_DIR'] = await createTestWebDist(tempDir);
     process.env['CAREERRAFIQ_INSECURE_DEV_COOKIE'] = '1';
     process.env['CAREERRAFIQ_ENABLE_EYE_MODE'] = '1';
     process.env['CAREERRAFIQ_OPERATOR_EMAILS'] = 'operator@example.com';
@@ -174,6 +187,7 @@ describe('API server integration', () => {
     tempDirectories.push(tempDir);
     process.env['CAREERRAFIQ_DB_FILE'] = join(tempDir, 'career-rafiq.db');
     process.env['CAREERRAFIQ_UPLOADS_DIR'] = join(tempDir, 'uploads');
+    process.env['CAREERRAFIQ_WEB_DIST_DIR'] = await createTestWebDist(tempDir);
     process.env['CAREERRAFIQ_INSECURE_DEV_COOKIE'] = '1';
 
     let firstServer: StartedServer | null = null;
@@ -472,6 +486,7 @@ describe('API server integration', () => {
     tempDirectories.push(tempDir);
     process.env['CAREERRAFIQ_DB_FILE'] = join(tempDir, 'career-rafiq.db');
     process.env['CAREERRAFIQ_UPLOADS_DIR'] = join(tempDir, 'uploads');
+    process.env['CAREERRAFIQ_WEB_DIST_DIR'] = await createTestWebDist(tempDir);
     process.env['CAREERRAFIQ_INSECURE_DEV_COOKIE'] = '1';
     process.env['CAREERRAFIQ_WEB_ORIGIN'] = 'http://localhost:3000';
 
@@ -543,6 +558,7 @@ describe('API server integration', () => {
     tempDirectories.push(tempDir);
     process.env['CAREERRAFIQ_DB_FILE'] = join(tempDir, 'career-rafiq.db');
     process.env['CAREERRAFIQ_UPLOADS_DIR'] = join(tempDir, 'uploads');
+    process.env['CAREERRAFIQ_WEB_DIST_DIR'] = await createTestWebDist(tempDir);
     process.env['CAREERRAFIQ_INSECURE_DEV_COOKIE'] = '1';
 
     let server: StartedServer | null = null;
@@ -574,6 +590,7 @@ describe('API server integration', () => {
     tempDirectories.push(tempDir);
     process.env['CAREERRAFIQ_DB_FILE'] = join(tempDir, 'career-rafiq.db');
     process.env['CAREERRAFIQ_UPLOADS_DIR'] = join(tempDir, 'uploads');
+    process.env['CAREERRAFIQ_WEB_DIST_DIR'] = await createTestWebDist(tempDir);
     process.env['CAREERRAFIQ_INSECURE_DEV_COOKIE'] = '1';
     process.env['CAREERRAFIQ_CAPTURE_RATE_LIMIT_MAX'] = '1';
     process.env['CAREERRAFIQ_CAPTURE_RATE_LIMIT_WINDOW_SECONDS'] = '60';
