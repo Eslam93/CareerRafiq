@@ -18,4 +18,3 @@ apps/extension/typecheck/
 *.db-wal
 *.tsbuildinfo
 PRD.docx
-package-lock.json
